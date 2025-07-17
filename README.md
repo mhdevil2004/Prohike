@@ -49,48 +49,12 @@ This platform was built using a modern, scalable, and AI-first technology stack.
 
 ---
 
-## 🚀 Getting Started
 
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-* Node.js and npm installed
-* MongoDB Atlas account (or local installation)
-
-### Installation
-
-1.  **Clone the repo**
-    ```sh
-    git clone [https://github.com/your-username/prohike.git](https://github.com/your-username/prohike.git)
-    ```
-2.  **Install NPM packages for both server and client**
-    ```sh
-    cd prohike/server && npm install
-    cd ../client && npm install
-    ```
-3.  **Create a `.env` file in the `server` directory and add your variables**
-    ```env
-    MONGO_URI=YOUR_MONGODB_CONNECTION_STRING
-    GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-    JWT_SECRET=YOUR_JWT_SECRET
-    ```
-4.  **Start the application**
-    ```sh
-    # Run the backend server from the /server directory
-    npm start
-
-    # Run the frontend client from the /client directory
-    npm start
-    ```
-
----
 
 ## 👤 About The Creator
 
 This platform was designed, architected, and built solo by **M. Harish**, a passionate B.Tech student from Tamil Nadu with a vision to revolutionize the hiring industry.
 
-* **LinkedIn:** [Your LinkedIn Profile URL]
-* **Portfolio:** [Link to your ZohoVerse or other portfolio site]
+
 
 I am actively seeking challenging internship and full-time opportunities at product-first companies. Let's connect!

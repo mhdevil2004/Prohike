@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialApp - Instagram + LinkedIn Hybrid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --warning-color: #f8961e;
+            --info-color: #560bad;
+            --text-color: #333;
+            --text-light: #6c757d;
+            --bg-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --bg-color: #121212;
+            --card-bg: rgba(30, 30, 30, 0.8);
+            --text-color: #f8f9fa;
+            --text-light: #adb5bd;
+            --light-color: #212529;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .gap-1 {
+            gap: 0.5rem;
+        }
+
+        .gap-2 {
+            gap: 1rem;
+        }
+
+        .gap-3 {
+            gap: 1.5rem;
+        }
+
+        .p-1 {
+            padding: 0.5rem;
+        }
+
+        .p-2 {
+            padding: 1rem;
+        }
+
+        .p-3 {
+            padding: 1.5rem;
+        }
+
+        .py-1 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .py-2 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .px-1 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .px-2 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .px-3 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .m-1 {
+            margin: 0.5rem;
+        }
+
+        .m-2 {
+            margin: 1rem;
+        }
+
+        .m-3 {
+            margin: 1.5rem;
+        }
+
+        .my-1 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .my-2 {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .my-3 {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mx-1 {
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .mx-2 {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        .mx-3 {
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-light {
+            color: var(--text-light);
+        }
+
+        .text-small {
+            font-size: 0.8rem;
+        }
+
+        .rounded {
+            border-radius: 0.5rem;
+        }
+
+        .rounded-full {
+            border-radius: 50%;
+        }
+
+        .shadow {
+            box-shadow: var(--shadow);
+        }
+
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #d1145a;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .navbar-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Stories Section */
+        .stories-container {
+            padding: 1rem 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .stories-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .stories {
+            display: inline-flex;
+            gap: 1rem;
+        }
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .story-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            padding: 2px;
+            transition: var(--transition);
+        }
+
+        .story-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .story-username {
+            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .add-story {
+            position: relative;
+        }
+
+        .add-story-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* Feed */
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .feed-tabs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .feed-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .feed-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .feed-tab:hover:not(.active) {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .post-card {
+            background-color: var(--card-bg);
+            border-radius: 0.8rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            gap: 0.8rem;
+        }
+
+        .post-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .post-user-info {
+            flex: 1;
+        }
+
+        .post-username {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .post-time {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .post-more {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .post-content {
+            padding: 0 0.8rem;
+        }
+
+        .post-text {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .post-tag {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0.8rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.3rem 0.5rem;
+            border-radius: 0.3rem;
+        }
+
+        .post-action:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .post-action i {
+            font-size: 1.2rem;
+        }
+
+        .post-likes {
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Chat System */
+        .chat-btn {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 5rem;
+            right: 1rem;
+            width: 350px;
+            height: 500px;
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-container.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-header {
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-weight: 600;
+        }
+
+        .chat-close {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-contacts {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .chat-contact {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-contact:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-contact-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .chat-contact-info {
+            flex: 1;
+        }
+
+        .chat-contact-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .chat-contact-status {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .chat-contact-time {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .chat-window {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .chat-message {
+            max-width: 70%;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .chat-message.sent {
+            align-self: flex-end;
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 0.3rem;
+        }
+
+        .chat-message.received {
+            align-self: flex-start;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-bottom-left-radius: 0.3rem;
+        }
+
+        .chat-message-time {
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .chat-message.received .chat-message-time {
+            color: var(--text-light);
+        }
+
+        .chat-input-container {
+            padding: 0.8rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 2rem;
+            outline: none;
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .chat-emoji-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .typing-indicator {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            padding: 0 1rem 0.5rem;
+            display: none;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        /* Profile Page */
+        .profile-header {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-bio {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .profile-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .profile-tab.active {
+            color: var(--primary-color);
+        }
+
+        .profile-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .profile-posts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .profile-post {
+            aspect-ratio: 1;
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .profile-post:hover img {
+            transform: scale(1.05);
+        }
+
+        .profile-post-stats {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .profile-post:hover .profile-post-stats {
+            opacity: 1;
+        }
+
+        .profile-post-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Create Post Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-weight: 600;
+        }
+
+        .modal-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .post-form-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            resize: none;
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        .post-form-image-preview {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            display: none;
+        }
+
+        .post-form-image-preview.active {
+            display: block;
+        }
+
+        .post-form-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .post-form-action-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .post-form-submit {
+            align-self: flex-end;
+        }
+
+        /* Story Viewer */
+        .story-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .story-viewer.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .story-header {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .story-user {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .story-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .story-username {
+            font-weight: 600;
+        }
+
+        .story-time {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .story-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .story-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-media {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .story-progress {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .story-progress-bar {
+            flex: 1;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .story-progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: white;
+            transition: width linear;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar-search {
+                display: none;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .posts {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-container {
+                width: 100%;
+                height: 70vh;
+                bottom: 0;
+                right: 0;
+                border-radius: 1rem 1rem 0 0;
+            }
+
+            .chat-btn {
+                bottom: 5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-links {
+                gap: 1rem;
+            }
+
+            .profile-posts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .story-avatar {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="navbar-brand">SocialApp</div>
+        
+        <div class="navbar-links">
+            <a href="#home" class="nav-link active"><i class="fas fa-home"></i></a>
+            <a href="#explore" class="nav-link"><i class="fas fa-search"></i></a>
+          
+            <a href="#profile" class="nav-link"><i class="fas fa-user"></i></a>
+        </div>
+        
+        <div class="navbar-actions">
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="profile-pic" id="profilePic">
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Home Feed -->
+        <section id="home" class="page active">
+            <!-- Stories Section -->
+            <div class="stories-container">
+                <div class="stories">
+                    <div class="story add-story">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Your Story" class="story-avatar">
+                        <span class="add-story-btn"><i class="fas fa-plus"></i></span>
+                        <span class="story-username">Your Story</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="story-avatar">
+                        <span class="story-username">john_doe</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="story-avatar">
+                        <span class="story-username">jane_smith</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="story-avatar">
+                        <span class="story-username">mike_jones</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="story-avatar">
+                        <span class="story-username">sarah_will</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="story-avatar">
+                        <span class="story-username">david_k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feed Tabs -->
+            <div class="feed-header">
+                <div class="feed-tabs">
+                    <div class="feed-tab active">Trending</div>
+                    <div class="feed-tab">Latest</div>
+                    <div class="feed-tab">Following</div>
+                </div>
+                <button class="btn btn-outline" id="createPostBtn"><i class="fas fa-plus"></i> Create Post</button>
+            </div>
+
+            <!-- Posts -->
+            <div class="posts">
+                <!-- Post 1 -->
+                <div class="post-card glass animate-in">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <div class="post-username">john_doe</div>
+                            <div class="post-time">2 hours ago</div>
+                        </div>
+                        <div class="post-more"><i class="fas fa-ellipsis-h"></i></div>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-text">Just launched my new startup! 🚀 After months of hard work, we're finally ready to share our product with the world. #startup #entrepreneur #tech</p>
+                        <img src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post" class="post-image">
+                        <div class="post-tags">
+                            <span class="post-tag">#startup</span>
+                            <span class="post-tag">#entrepreneur</span>
+                            <span class="post-tag">#tech</span>
+                            <span class="post-tag">#business</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action"><i class="far fa-heart"></i> <span class="post-likes">124</span></div>
+                        <div class="post-action"><i class="far fa-comment"></i> 23</div>
+                        <div class="post-action"><i class="far fa-share-square"></i></div>
+                        <div class="post-action"><i class="far fa-bookmark"></i></div>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="post-card glass animate-in delay-1">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <div class="post-username">jane_smith</div>
+                            <div class="post-time">5 hours ago</div>
+                        </div>
+                        <div class="post-more"><i class="fas fa-ellipsis-h"></i></div>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-text">Beautiful day for a hike! Nature always helps me clear my mind and get new ideas. 🏞️ #outdoors #nature #inspiration</p>
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post" class="post-image">
+                        <div class="post-tags">
+                            <span class="post-tag">#outdoors</span>
+                            <span class="post-tag">#nature</span>
+                            <span class="post-tag">#inspiration</span>
+                            <span class="post-tag">#hiking</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action"><i class="far fa-heart"></i> <span class="post-likes">89</span></div>
+                        <div class="post-action"><i class="far fa-comment"></i> 12</div>
+                        <div class="post-action"><i class="far fa-share-square"></i></div>
+                        <div class="post-action"><i class="far fa-bookmark"></i></div>
+                    </div>
+                </div>
+
+                <!-- Post 3 -->
+                <div class="post-card glass animate-in delay-2">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <div class="post-username">mike_jones</div>
+                            <div class="post-time">1 day ago</div>
+                        </div>
+                        <div class="post-more"><i class="fas fa-ellipsis-h"></i></div>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-text">Just published my latest article on AI and its impact on modern businesses. Check it out and let me know your thoughts! #ai #business #technology</p>
+                        <img src="banner.png" alt="Post" class="post-image">
+                        <div class="post-tags">
+                            <span class="post-tag">#ai</span>
+                            <span class="post-tag">#business</span>
+                            <span class="post-tag">#technology</span>
+                            <span class="post-tag">#article</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action"><i class="far fa-heart"></i> <span class="post-likes">215</span></div>
+                        <div class="post-action"><i class="far fa-comment"></i> 42</div>
+                        <div class="post-action"><i class="far fa-share-square"></i></div>
+                        <div class="post-action"><i class="far fa-bookmark"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explore Page -->
+        <section id="explore" class="page hidden">
+            <h2 class="my-2">Explore</h2>
+            <div class="posts">
+                <!-- Explore Post 1 -->
+                <div class="post-card glass animate-in">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <div class="post-username">sarah_will</div>
+                            <div class="post-time">3 hours ago</div>
+                        </div>
+                        <div class="post-more"><i class="fas fa-ellipsis-h"></i></div>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-text">Workspace setup for maximum productivity! What do you think about my new standing desk? #productivity #workspace #office</p>
+                        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post" class="post-image">
+                        <div class="post-tags">
+                            <span class="post-tag">#productivity</span>
+                            <span class="post-tag">#workspace</span>
+                            <span class="post-tag">#office</span>
+                            <span class="post-tag">#setup</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action"><i class="far fa-heart"></i> <span class="post-likes">76</span></div>
+                        <div class="post-action"><i class="far fa-comment"></i> 8</div>
+                        <div class="post-action"><i class="far fa-share-square"></i></div>
+                        <div class="post-action"><i class="far fa-bookmark"></i></div>
+                    </div>
+                </div>
+
+                <!-- Explore Post 2 -->
+                <div class="post-card glass animate-in delay-1">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <div class="post-username">david_k</div>
+                            <div class="post-time">6 hours ago</div>
+                        </div>
+                        <div class="post-more"><i class="fas fa-ellipsis-h"></i></div>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-text">Excited to announce that I'll be speaking at the Tech Innovators Conference next month! Who else is going? #conference #tech #speaking</p>
+                        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post" class="post-image">
+                        <div class="post-tags">
+                            <span class="post-tag">#conference</span>
+                            <span class="post-tag">#tech</span>
+                            <span class="post-tag">#speaking</span>
+                            <span class="post-tag">#event</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action"><i class="far fa-heart"></i> <span class="post-likes">143</span></div>
+                        <div class="post-action"><i class="far fa-comment"></i> 27</div>
+                        <div class="post-action"><i class="far fa-share-square"></i></div>
+                        <div class="post-action"><i class="far fa-bookmark"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profile" class="page hidden">
+            <div class="profile-header">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="profile-avatar">
+                <div class="profile-info">
+                    <h1 class="profile-name">jane_doe</h1>
+                    <p class="profile-bio">Digital Marketing Specialist | Content Creator | Coffee Enthusiast | Sharing my journey in marketing and personal growth</p>
+                    
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">245</div>
+                            <div class="profile-stat-label">Posts</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">1.2K</div>
+                            <div class="profile-stat-label">Followers</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">587</div>
+                            <div class="profile-stat-label">Following</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn">Edit Profile</button>
+                        <button class="btn btn-outline">Share Profile</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-tabs">
+                <div class="profile-tab active">Posts</div>
+                <div class="profile-tab">Saved</div>
+                <div class="profile-tab">Tagged</div>
+            </div>
+            
+            <div class="profile-posts">
+                <div class="profile-post">
+                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post">
+                    <div class="profile-post-stats">
+                        <div class="profile-post-stat"><i class="fas fa-heart"></i> 124</div>
+                        <div class="profile-post-stat"><i class="fas fa-comment"></i> 23</div>
+                    </div>
+                </div>
+                <div class="profile-post">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post">
+                    <div class="profile-post-stats">
+                        <div class="profile-post-stat"><i class="fas fa-heart"></i> 89</div>
+                        <div class="profile-post-stat"><i class="fas fa-comment"></i> 12</div>
+                    </div>
+                </div>
+                <div class="profile-post">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post">
+                    <div class="profile-post-stats">
+                        <div class="profile-post-stat"><i class="fas fa-heart"></i> 215</div>
+                        <div class="profile-post-stat"><i class="fas fa-comment"></i> 42</div>
+                    </div>
+                </div>
+                <div class="profile-post">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post">
+                    <div class="profile-post-stats">
+                        <div class="profile-post-stat"><i class="fas fa-heart"></i> 76</div>
+                        <div class="profile-post-stat"><i class="fas fa-comment"></i> 8</div>
+                    </div>
+                </div>
+                <div class="profile-post">
+                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post">
+                    <div class="profile-post-stats">
+                        <div class="profile-post-stat"><i class="fas fa-heart"></i> 143</div>
+                        <div class="profile-post-stat"><i class="fas fa-comment"></i> 27</div>
+                    </div>
+                </div>
+                <div class="profile-post">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Post">
+                    <div class="profile-post-stats">
+                        <div class="profile-post-stat"><i class="fas fa-heart"></i> 98</div>
+                        <div class="profile-post-stat"><i class="fas fa-comment"></i> 15</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chat Button -->
+    <div class="chat-btn" id="chatBtn">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container glass" id="chatContainer">
+        <div class="chat-header">
+            <div class="chat-title">Messages</div>
+            <div class="chat-close" id="chatClose"><i class="fas fa-times"></i></div>
+        </div>
+        
+        <div class="chat-contacts" id="chatContacts">
+            <div class="chat-contact" data-user="john_doe">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="chat-contact-avatar">
+                <div class="chat-contact-info">
+                    <div class="chat-contact-name">John Doe</div>
+                    <div class="chat-contact-status">Online</div>
+                </div>
+                <div class="chat-contact-time">2 min ago</div>
+            </div>
+            
+            <div class="chat-contact" data-user="jane_smith">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="chat-contact-avatar">
+                <div class="chat-contact-info">
+                    <div class="chat-contact-name">Jane Smith</div>
+                    <div class="chat-contact-status">Typing...</div>
+                </div>
+                <div class="chat-contact-time">10 min ago</div>
+            </div>
+            
+            <div class="chat-contact" data-user="mike_jones">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="chat-contact-avatar">
+                <div class="chat-contact-info">
+                    <div class="chat-contact-name">Mike Jones</div>
+                    <div class="chat-contact-status">Offline</div>
+                </div>
+                <div class="chat-contact-time">1 hour ago</div>
+            </div>
+        </div>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="flex items-center gap-1">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="chat-contact-avatar">
+                    <div class="chat-contact-name">John Doe</div>
+                </div>
+                <div class="chat-close" id="backToContacts"><i class="fas fa-arrow-left"></i></div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message received">
+                    Hey there! How's it going?
+                    <div class="chat-message-time">10:30 AM</div>
+                </div>
+                <div class="chat-message sent">
+                    Hi! I'm doing great, thanks for asking. How about you?
+                    <div class="chat-message-time">10:32 AM</div>
+                </div>
+                <div class="chat-message received">
+                    Pretty good! Just wanted to check if you're still up for the meeting tomorrow?
+                    <div class="chat-message-time">10:33 AM</div>
+                </div>
+                <div class="chat-message sent">
+                    Absolutely! 2 PM still works for me. Looking forward to it.
+                    <div class="chat-message-time">10:35 AM</div>
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                John is typing...
+            </div>
+            
+            <div class="chat-input-container">
+                <button class="chat-emoji-btn"><i class="far fa-smile"></i></button>
+                <input type="text" class="chat-input" placeholder="Type a message..." id="chatInput">
+                <button class="chat-send-btn" id="chatSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div class="modal" id="createPostModal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <div class="modal-title">Create New Post</div>
+                <div class="modal-close" id="closePostModal"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <form class="post-form" id="postForm">
+                    <textarea class="post-form-textarea" placeholder="What's on your mind?" id="postText"></textarea>
+                    <img src="" alt="Post Image" class="post-form-image-preview" id="postImagePreview">
+                    <div class="post-form-actions">
+                        <div>
+                            <button type="button" class="post-form-action-btn" id="addImageBtn"><i class="fas fa-image"></i></button>
+                            <button type="button" class="post-form-action-btn"><i class="fas fa-video"></i></button>
+                            <button type="button" class="post-form-action-btn"><i class="fas fa-map-marker-alt"></i></button>
+                        </div>
+                        <button type="submit" class="btn post-form-submit">Post</button>
+                    </div>
+                    <input type="file" id="postImageInput" accept="image/*" style="display: none;">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Viewer -->
+    <div class="story-viewer" id="storyViewer">
+        <div class="story-header">
+            <div class="story-user">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="story-user-avatar">
+                <div>
+                    <div class="story-username">john_doe</div>
+                    <div class="story-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="story-close" id="closeStoryViewer"><i class="fas fa-times"></i></div>
+        </div>
+        
+        <div class="story-content">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Story" class="story-media">
+        </div>
+        
+        <div class="story-progress">
+            <div class="story-progress-bar"><div class="story-progress-fill"></div></div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const chatBtn = document.getElementById('chatBtn');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatClose = document.getElementById('chatClose');
+        const chatContacts = document.getElementById('chatContacts');
+        const chatWindow = document.getElementById('chatWindow');
+        const backToContacts = document.getElementById('backToContacts');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const createPostBtn = document.getElementById('createPostBtn');
+        const createPostModal = document.getElementById('createPostModal');
+        const closePostModal = document.getElementById('closePostModal');
+        const postForm = document.getElementById('postForm');
+        const postText = document.getElementById('postText');
+        const addImageBtn = document.getElementById('addImageBtn');
+        const postImageInput = document.getElementById('postImageInput');
+        const postImagePreview = document.getElementById('postImagePreview');
+        const storyViewer = document.getElementById('storyViewer');
+        const closeStoryViewer = document.getElementById('closeStoryViewer');
+        const stories = document.querySelectorAll('.story:not(.add-story)');
+        const feedTabs = document.querySelectorAll('.feed-tab');
+        const postCards = document.querySelectorAll('.post-card');
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // Chat System
+        chatBtn.addEventListener('click', () => {
+            chatContainer.classList.toggle('active');
+        });
+
+        chatClose.addEventListener('click', () => {
+            chatContainer.classList.remove('active');
+        });
+
+        // Handle contact clicks
+        document.querySelectorAll('.chat-contact').forEach(contact => {
+            contact.addEventListener('click', () => {
+                chatContacts.style.display = 'none';
+                chatWindow.style.display = 'flex';
+            });
+        });
+
+        backToContacts.addEventListener('click', () => {
+            chatContacts.style.display = 'block';
+            chatWindow.style.display = 'none';
+        });
+
+        // Send message
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'chat-message sent';
+                messageElement.innerHTML = `
+                    ${message}
+                    <div class="chat-message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                `;
+                chatMessages.appendChild(messageElement);
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate reply after 1-3 seconds
+                setTimeout(() => {
+                    typingIndicator.classList.add('active');
+                    setTimeout(() => {
+                        typingIndicator.classList.remove('active');
+                        const replies = [
+                            "That's interesting!",
+                            "I see what you mean.",
+                            "Let me think about that.",
+                            "Sounds good to me!",
+                            "Thanks for letting me know."
+                        ];
+                        const reply = replies[Math.floor(Math.random() * replies.length)];
+                        const replyElement = document.createElement('div');
+                        replyElement.className = 'chat-message received';
+                        replyElement.innerHTML = `
+                            ${reply}
+                            <div class="chat-message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        `;
+                        chatMessages.appendChild(replyElement);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 2000);
+                }, Math.random() * 2000 + 1000);
+            }
+        }
+
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('href').substring(1);
+                
+                // Update active nav link
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show target page
+                pages.forEach(page => page.classList.add('hidden'));
+                document.getElementById(target).classList.remove('hidden');
+            });
+        });
+
+        // Feed Tabs
+        feedTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                feedTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // In a real app, you would fetch different posts based on the tab
+                // Here we just animate the existing posts for demo
+                postCards.forEach((card, index) => {
+                    card.style.animation = 'none';
+                    void card.offsetWidth; // Trigger reflow
+                    card.style.animation = `fadeIn 0.3s ease forwards ${index * 0.1}s`;
+                });
+            });
+        });
+
+        // Create Post Modal
+        createPostBtn.addEventListener('click', () => {
+            createPostModal.classList.add('active');
+        });
+
+        closePostModal.addEventListener('click', () => {
+            createPostModal.classList.remove('active');
+        });
+
+        // Handle post form submission
+        postForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = postText.value.trim();
+            const image = postImagePreview.src;
+            
+            if (text || image) {
+                // In a real app, you would send this data to the server
+                console.log('Post created:', { text, image });
+                
+                // Close modal and reset form
+                createPostModal.classList.remove('active');
+                postText.value = '';
+                postImagePreview.src = '';
+                postImagePreview.classList.remove('active');
+                postImageInput.value = '';
+            }
+        });
+
+        // Add image to post
+        addImageBtn.addEventListener('click', () => {
+            postImageInput.click();
+        });
+
+        postImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    postImagePreview.src = event.target.result;
+                    postImagePreview.classList.add('active');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Story Viewer
+        stories.forEach(story => {
+            story.addEventListener('click', () => {
+                const avatar = story.querySelector('.story-avatar');
+                const username = story.querySelector('.story-username').textContent;
+                
+                // Update story viewer with clicked story data
+                const storyViewerAvatar = storyViewer.querySelector('.story-user-avatar');
+                const storyViewerUsername = storyViewer.querySelector('.story-username');
+                
+                storyViewerAvatar.src = avatar.src;
+                storyViewerUsername.textContent = username;
+                
+                // Show story viewer
+                storyViewer.classList.add('active');
+                
+                // Start progress bar
+                const progressFill = storyViewer.querySelector('.story-progress-fill');
+                progressFill.style.width = '0%';
+                progressFill.style.transition = 'width 5s linear';
+                setTimeout(() => {
+                    progressFill.style.width = '100%';
+                }, 50);
+                
+                // Close after 5 seconds
+                setTimeout(() => {
+                    storyViewer.classList.remove('active');
+                }, 5000);
+            });
+        });
+
+        closeStoryViewer.addEventListener('click', () => {
+            storyViewer.classList.remove('active');
+        });
+
+        // Animate post cards on load
+        document.addEventListener('DOMContentLoaded', () => {
+            postCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('animate-in');
+            });
+        });
+    </script>
+</body>
+</html>

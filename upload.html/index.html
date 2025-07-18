@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProHike - Upload Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F9FAFB;
+            --text-color: #1F2937;
+            --accent-color: #14B8A6;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Upload Card */
+        .upload-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            transition: var(--transition);
+        }
+
+        .upload-card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            margin-bottom: 2rem;
+        }
+
+        .card-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Radio Buttons */
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            margin-right: 0.5rem;
+        }
+
+        /* Chips/Tags */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            background-color: #E5E7EB;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chip:hover {
+            background-color: #D1D5DB;
+        }
+
+        .chip.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed #E5E7EB;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(20, 184, 166, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Preview */
+        .preview-container {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        /* Button */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0F9D8B;
+            transform: translateY(-2px);
+        }
+
+        /* Feed Page Styles (hidden by default) */
+        .feed-page {
+            display: none;
+            padding: 2rem;
+        }
+
+        .feed-header {
+            margin-bottom: 2rem;
+        }
+
+        .feed-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-media {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .project-author {
+            margin-right: 1rem;
+        }
+
+        .project-company {
+            background-color: #E5E7EB;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+            font-size: 0.9375rem;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6B7280;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+                margin-top: 70px;
+            }
+            
+            .upload-card {
+                padding: 1.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Upload Page (default view) -->
+    <div id="upload-page">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar">
+            <a href="#" class="logo">ProHike</a>
+            <div class="nav-links">
+                <a href="#" class="active">Upload Project</a>
+                <a href="#">Explore</a>
+                <a href="#">Chat</a>
+                <a href="#">Profile</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="upload-card">
+                <div class="card-header">
+                    <h1>Upload Your Project</h1>
+                </div>
+                
+                <form>
+                    <!-- Project Title -->
+                    <div class="form-group">
+                        <label for="project-title">Project Title</label>
+                        <input type="text" id="project-title" class="form-control" placeholder="Enter your project title">
+                    </div>
+                    
+                    <!-- Project Type -->
+                    <div class="form-group">
+                        <label for="project-type">Project Type</label>
+                        <select id="project-type" class="form-control">
+                            <option value="" disabled selected>Select project type</option>
+                            <option value="tech">Tech</option>
+                            <option value="architecture">Architecture</option>
+                            <option value="cinema">Cinema</option>
+                            <option value="design">Design</option>
+                            <option value="research">Research</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Upload Type -->
+                    <div class="form-group">
+                        <label>Upload Type</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="upload-type" value="image" checked> Image
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="upload-type" value="video"> Video
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="upload-type" value="github"> GitHub Link
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="upload-type" value="pdf"> PDF
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="upload-type" value="figma"> Figma Link
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="project-description">Description</label>
+                        <textarea id="project-description" class="form-control" placeholder="Tell us about your project..."></textarea>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="form-group">
+                        <label for="project-tags">Tags</label>
+                        <input type="text" id="project-tags" class="form-control" placeholder="Add tags (separate with commas)">
+                        <div class="chips-container">
+                            <div class="chip">UI/UX</div>
+                            <div class="chip">Web Design</div>
+                            <div class="chip active">Material Design</div>
+                            <div class="chip">Responsive</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Company Tag -->
+                    <div class="form-group">
+                        <label for="company-tag">Company Tag (optional)</label>
+                        <select id="company-tag" class="form-control">
+                            <option value="" selected>Select company</option>
+                            <option value="tcs">TCS</option>
+                            <option value="zoho">Zoho</option>
+                            <option value="infosys">Infosys</option>
+                            <option value="netflix">Netflix</option>
+                            <option value="google">Google</option>
+                        </select>
+                    </div>
+                    
+                    <!-- File Upload -->
+                    <div class="form-group">
+                        <label>Upload File or Add Link</label>
+                        <div class="upload-area">
+                            <div class="upload-icon">📁</div>
+                            <p>Drag & drop your files here or click to browse</p>
+                            <p class="text-sm">Supports: JPG, PNG, MP4, PDF, GitHub/Figma links</p>
+                        </div>
+                        <div class="preview-container">
+                            <p>Preview:</p>
+                            <img src="" alt="Preview" class="preview-image hidden">
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="button" class="btn btn-primary" onclick="showFeedPage()">Post Now</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Feed Page (hidden by default) -->
+    <div id="feed-page" class="feed-page">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar">
+            <a href="#" class="logo">ProHike</a>
+            <div class="nav-links">
+                <a href="#" onclick="showUploadPage()">Upload Project</a>
+                <a href="#" class="active">Explore</a>
+                <a href="#">Chat</a>
+                <a href="#">Profile</a>
+            </div>
+        </nav>
+
+        <!-- Feed Content -->
+        <main class="main-content">
+            <div class="feed-header">
+                <h1>Recent Projects</h1>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                    <img src="image-2.png" alt="Project" class="project-media">
+                    <div class="project-info">
+                        <h3 class="project-title">Modern Dashboard UI</h3>
+                        <div class="project-meta">
+                            <span class="project-author">by Alex Johnson</span>
+                            <span class="project-company">Google</span>
+                        </div>
+                        <p class="project-description">
+                            A clean, modern dashboard interface with interactive elements and dark mode support.
+                        </p>
+                        <div class="chips-container">
+                            <div class="chip">UI/UX</div>
+                            <div class="chip">Dashboard</div>
+                            <div class="chip">Figma</div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn">❤️ 124</button>
+                            <button class="action-btn">🔁 Share</button>
+                            <button class="action-btn">💬 24</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                    <img src="image-7.png" alt="Project" class="project-media">
+                    <div class="project-info">
+                        <h3 class="project-title">Urban Living Complex</h3>
+                        <div class="project-meta">
+                            <span class="project-author">by Maria Garcia</span>
+                            <span class="project-company">Zoho</span>
+                        </div>
+                        <p class="project-description">
+                            Sustainable urban housing design with green spaces and community areas.
+                        </p>
+                        <div class="chips-container">
+                            <div class="chip">Architecture</div>
+                            <div class="chip">Urban</div>
+                            <div class="chip">Sustainable</div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn">❤️ 89</button>
+                            <button class="action-btn">🔁 Share</button>
+                            <button class="action-btn">💬 12</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3 -->
+                <div class="project-card">
+                    <img src="banner-2.png" alt="Project" class="project-media">
+                    <div class="project-info">
+                        <h3 class="project-title">E-commerce Backend</h3>
+                        <div class="project-meta">
+                            <span class="project-author">by Sam Wilson</span>
+                            <span class="project-company">TCS</span>
+                        </div>
+                        <p class="project-description">
+                            Scalable Node.js backend for e-commerce platform with microservices architecture.
+                        </p>
+                        <div class="chips-container">
+                            <div class="chip">Node.js</div>
+                            <div class="chip">Microservices</div>
+                            <div class="chip">GitHub</div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn">❤️ 156</button>
+                            <button class="action-btn">🔁 Share</button>
+                            <button class="action-btn">💬 32</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple functions to toggle between upload and feed views
+        function showFeedPage() {
+            document.getElementById('upload-page').style.display = 'none';
+            document.getElementById('feed-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showUploadPage() {
+            document.getElementById('feed-page').style.display = 'none';
+            document.getElementById('upload-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // Simulate file upload preview
+        document.querySelector('.upload-area').addEventListener('click', function() {
+            const previewContainer = document.querySelector('.preview-container');
+            const previewImage = document.querySelector('.preview-image');
+            
+            previewContainer.style.display = 'block';
+            previewImage.src = 'https://source.unsplash.com/random/800x600/?design,tech';
+            previewImage.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

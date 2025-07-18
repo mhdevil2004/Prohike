@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProHike - Professional Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F9FAFB;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --accent: #14B8A6;
+            --accent-hover: #0D9488;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Resources & Collaborators Section */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .company-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .company-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .company-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .company-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: rgba(20, 184, 166, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--text-secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* About the Creator Section */
+        .creator-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: var(--shadow);
+        }
+
+        .creator-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .creator-image {
+            min-width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #888;
+        }
+
+        .creator-details {
+            flex: 1;
+        }
+
+        .creator-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .creator-details p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .skill-badge {
+            background-color: rgba(20, 184, 166, 0.1);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .vision-box {
+            background-color: rgba(20, 184, 166, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 30px;
+        }
+
+        .vision-box p {
+            font-style: italic;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .companies-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .companies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .creator-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .creator-section {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Resources & Collaborators Section -->
+        <section id="resources">
+            <div class="section-header">
+                <h2>Collaborating with the Best to Empower the Future</h2>
+                <p>ProHike is backed and noticed by leading global companies who explore this platform to discover talented creators and engineers based on their live project work — not their test scores.</p>
+            </div>
+
+            <div class="companies-grid">
+                <div class="company-card">
+                    <div class="company-logo">G</div>
+                    <h3 class="company-name">Google</h3>
+                    <p class="company-description">Actively scouts top student projects for internship & product roles.</p>
+                    <span class="company-badge">🤝 Recruiter Network</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">Z</div>
+                    <h3 class="company-name">Zoho</h3>
+                    <p class="company-description">Regularly reviews projects for potential hires and collaborations.</p>
+                    <span class="company-badge">🌐 Talent Observer</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">SF</div>
+                    <h3 class="company-name">Salesforce</h3>
+                    <p class="company-description">Identifies promising developers for their early-career programs.</p>
+                    <span class="company-badge">🔍 Partner</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">A</div>
+                    <h3 class="company-name">Atlassian</h3>
+                    <p class="company-description">Looks for innovative solutions to real-world problems.</p>
+                    <span class="company-badge">🤝 Recruiter Network</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">M</div>
+                    <h3 class="company-name">Meta</h3>
+                    <p class="company-description">Scans for creative minds working on cutting-edge technologies.</p>
+                    <span class="company-badge">🌐 Talent Observer</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">U</div>
+                    <h3 class="company-name">Uber</h3>
+                    <p class="company-description">Seeks problem-solvers with practical implementation skills.</p>
+                    <span class="company-badge">🔍 Partner</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">AZ</div>
+                    <h3 class="company-name">Amazon</h3>
+                    <p class="company-description">Identifies candidates through their project complexity.</p>
+                    <span class="company-badge">🤝 Recruiter Network</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">N</div>
+                    <h3 class="company-name">Netflix</h3>
+                    <p class="company-description">Looks for unique approaches to user experience challenges.</p>
+                    <span class="company-badge">🌐 Talent Observer</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">MS</div>
+                    <h3 class="company-name">Microsoft</h3>
+                    <p class="company-description">Evaluates projects for technical depth and innovation.</p>
+                    <span class="company-badge">🔍 Partner</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">AI</div>
+                    <h3 class="company-name">OpenAI</h3>
+                    <p class="company-description">Seeks creative applications of AI in practical scenarios.</p>
+                    <span class="company-badge">🤝 Recruiter Network</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">G</div>
+                    <h3 class="company-name">GitHub</h3>
+                    <p class="company-description">Identifies promising developers for their student programs.</p>
+                    <span class="company-badge">🌐 Talent Observer</span>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-logo">D</div>
+                    <h3 class="company-name">Dropbox</h3>
+                    <p class="company-description">Looks for elegant solutions to storage and collaboration.</p>
+                    <span class="company-badge">🔍 Partner</span>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <p>By publishing your projects on ProHike, you're visible to recruiters and product teams from over 15+ global tech companies.</p>
+                <a href="#" class="btn">Upload Project Now</a>
+            </div>
+        </section>
+
+        <!-- About the Creator Section -->
+        <section id="creator">
+            <div class="section-header">
+                <h2>Meet the Builder Behind ProHike</h2>
+            </div>
+
+            <div class="creator-section">
+                <div class="creator-content">
+                    <div class="creator-image"><img src="Green Gradient Minimalist Simple Instagram Profile Picture.png" alt=""></div>
+                    <div class="creator-details">
+                        <h3>M. Harish</h3>
+                        <p>I'm a B.Tech AI & Data Science student and full-stack product builder from Annai Vailankanni College of Engineering. I created ProHike to empower students, creators, and problem-solvers to get noticed and hired — not based on resumes, but based on what they build. I believe in AI-first development, product-first hiring, and building tools that move fast and break barriers.</p>
+                        
+                        <div class="skills-list">
+                            <span class="skill-badge">HTML</span>
+                            <span class="skill-badge">CSS</span>
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">Node.js</span>
+                            <span class="skill-badge">MongoDB</span>
+                            <span class="skill-badge">Gemini API</span>
+                            <span class="skill-badge">Prompt Engineering</span>
+                            <span class="skill-badge">Figma</span>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="#" class="social-link">GitHub</a>
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Vercel</a>
+                            <a href="#" class="social-link">Email</a>
+                        </div>
+
+                        <div class="vision-box">
+                            <p>"My mission is to make hiring portfolio-based, not puzzle-based — and ProHike is the first step toward that future."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
